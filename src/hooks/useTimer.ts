@@ -1,9 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 
-export const useTimer = (intervalMs = 10) => {
-    const [isRunning, setIsRunning] = useState(false);
-    const [time, setTime] = useState(0);
-    const intervalRef = useRef(null);
+interface UseTimerReturn {
+    time: number;
+    isRunning: boolean;
+    toggle: () => void;
+    reset: () => void;
+}
+
+export const useTimer = (intervalMs: number = 10): UseTimerReturn => {
+    const [isRunning, setIsRunning] = useState<boolean>(false);
+    const [time, setTime] = useState<number>(0);
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     useEffect(() => {
         if (isRunning) {
@@ -20,8 +27,8 @@ export const useTimer = (intervalMs = 10) => {
         };
     }, [isRunning, intervalMs]);
 
-    const toggle = () => setIsRunning(prev => !prev);
-    const reset = () => {
+    const toggle = (): void => setIsRunning(prev => !prev);
+    const reset = (): void => {
         setIsRunning(false);
         setTime(0);
     };

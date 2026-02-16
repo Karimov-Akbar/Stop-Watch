@@ -1,0 +1,64 @@
+.timer-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fafafa;
+}
+
+.timer-remove {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #e0e0e0;
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.timer-remove:hover {
+    background: #ff4444;
+    color: white;
+}
+
+.timer-display {
+    font-size: 2rem;
+    font-family: monospace;
+    margin: 12px 0;
+}
+
+.timer__options {
+    display: flex;
+    gap: 20px;
+}
+
+.timer__options button {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    background: blue;
+    color: white;
+    font-size: 14px;
+    transition: opacity 0.2s;
+}
+
+.timer__options button:hover {
+    opacity: 0.85;
+}
+
+.timer__options button:nth-of-type(2) {
+    background: red;
+}
