@@ -1,10 +1,12 @@
+import { memo } from "react";
+
 interface TimerOptionsProps {
     isRunning: boolean;
     onToggle: () => void;
     onReset: () => void;
 }
 
-const TimerOptions: React.FC<TimerOptionsProps> = ({ isRunning, onToggle, onReset }) => {
+const TimerOptions = memo<TimerOptionsProps>(({ isRunning, onToggle, onReset }) => {
     return (
         <div className="timer__options">
             <button onClick={onToggle}>
@@ -13,6 +15,6 @@ const TimerOptions: React.FC<TimerOptionsProps> = ({ isRunning, onToggle, onRese
             <button onClick={onReset}>Рестарт</button>
         </div>
     );
-};
+});
 
 export default TimerOptions;

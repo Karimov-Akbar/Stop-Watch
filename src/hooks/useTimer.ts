@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface UseTimerReturn {
     time: number;
@@ -27,11 +27,11 @@ export const useTimer = (intervalMs: number = 10): UseTimerReturn => {
         };
     }, [isRunning, intervalMs]);
 
-    const toggle = (): void => setIsRunning(prev => !prev);
-    const reset = (): void => {
+    const toggle = useCallback((): void => setIsRunning(prev => !prev), []);
+    const reset = useCallback((): void => {
         setIsRunning(false);
         setTime(0);
-    };
+    }, []);
 
     return { time, isRunning, toggle, reset };
 };

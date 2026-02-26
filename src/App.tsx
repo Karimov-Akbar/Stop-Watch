@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import TimerCard from './widgets/TImerCard/TimerCard';
 import './widgets/TimerOptions/TimerOptions.css';
 
@@ -9,9 +9,9 @@ const App: React.FC = () => {
         setTimerIds(prev => [...prev, Date.now()]);
     };
 
-    const removeTimer = (id: number): void => {
+    const removeTimer = useCallback((id: number): void => {
         setTimerIds(prev => prev.filter(timerId => timerId !== id));
-    };
+    }, []);
 
     return (
         <div className="app">

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { useTimer } from '../../hooks/useTimer';
 import TimerOptions from '../TimerOptions/TimerOptions';
@@ -10,11 +11,12 @@ interface TimerCardProps {
 
 const TimerCard: React.FC<TimerCardProps> = ({ id, onRemove }) => {
     const { time, isRunning, toggle, reset } = useTimer();
+    const formattedTime = useMemo(() => formatTime(time), [time]);
 
     return (
         <div className="timer-card">
             <button className="timer-remove" onClick={() => onRemove(id)}>✕</button>
-            <p className="timer-display">{formatTime(time)}</p>
+            <p className="timer-display">{formattedTime}</p>
             <TimerOptions isRunning={isRunning} onToggle={toggle} onReset={reset} />
         </div>
     );
