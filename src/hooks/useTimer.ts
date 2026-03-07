@@ -1,17 +1,19 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { formatTime } from '../utils/formatTime';
 
 interface UseTimerReturn {
     time: number;
     isRunning: boolean;
     toggle: () => void;
     reset: () => void;
-    formatTime: (milliseconds: number) => string;
+    formattedTime: string;
 }
 
 export const useTimer = (intervalMs: number = 10): UseTimerReturn => {
     const [isRunning, setIsRunning] = useState<boolean>(false);
     const [time, setTime] = useState<number>(0);
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const formattedTime = useMemo(() => formatTime(time), [time]);
 
     useEffect(() => {
         if (isRunning) {
@@ -34,17 +36,6 @@ export const useTimer = (intervalMs: number = 10): UseTimerReturn => {
         setTime(0);
     }, []);
 
-    const formatTime = useCallback((milliseconds: number): string => {
-        const minutes = Math.floor(milliseconds / 60000);
-        const seconds = Math.floor((milliseconds % 60000) / 1000);
-        const ms = milliseconds % 1000;
 
-        return (
-            `${String(minutes).padStart(2, '0')}:` +
-            `${String(seconds).padStart(2, '0')}:` +
-            `${String(ms).padStart(3, '0')}`
-        );
-    }, []);
-
-    return { time, isRunning, toggle, reset, formatTime };
+    return { time, isRunning, toggle, reset, formattedTime };
 };
