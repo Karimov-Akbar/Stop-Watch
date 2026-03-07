@@ -5,6 +5,7 @@ interface UseTimerReturn {
     isRunning: boolean;
     toggle: () => void;
     reset: () => void;
+    formatTime: (milliseconds: number) => string;
 }
 
 export const useTimer = (intervalMs: number = 10): UseTimerReturn => {
@@ -33,5 +34,17 @@ export const useTimer = (intervalMs: number = 10): UseTimerReturn => {
         setTime(0);
     }, []);
 
-    return { time, isRunning, toggle, reset };
+    const formatTime = useCallback((milliseconds: number): string => {
+        const minutes = Math.floor(milliseconds / 60000);
+        const seconds = Math.floor((milliseconds % 60000) / 1000);
+        const ms = milliseconds % 1000;
+
+        return (
+            `${String(minutes).padStart(2, '0')}:` +
+            `${String(seconds).padStart(2, '0')}:` +
+            `${String(ms).padStart(3, '0')}`
+        );
+    }, []);
+
+    return { time, isRunning, toggle, reset, formatTime };
 };
